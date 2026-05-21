@@ -15,13 +15,15 @@ export function useTodos(db: DbClient | null, listId: string | null, sortBy: Sor
       setTodos([])
       return
     }
+    const q = searchQuery.trim()
     const data = await local.getTodosByListId(db, listId)
-    const sorted = sortTodos(data, sortBy)
+    const filtered = q ? data.filter((t) => t.title.toLowerCase().includes(q.toLowerCase())) : data
+    const sorted = sortTodos(filtered, sortBy)
     setTodos(sorted)
     if (selectedIndex >= sorted.length) {
       setSelectedIndex(Math.max(0, sorted.length - 1))
     }
-  }, [db, listId, sortBy, selectedIndex])
+  }, [db, listId, sortBy, selectedIndex, searchQuery])
 
   useEffect(() => {
     if (previousListId.current !== listId) {
