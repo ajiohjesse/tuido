@@ -76,6 +76,14 @@ export async function softDeleteList(db: DbClient, id: string): Promise<void> {
   })
 }
 
+export async function countListsByNamePattern(db: DbClient, pattern: string): Promise<number> {
+  const res = await db.execute({
+    sql: "SELECT COUNT(*) AS cnt FROM lists WHERE deleted_at IS NULL AND name LIKE ?",
+    args: [`${pattern}%`],
+  })
+  return res.rows[0]!.cnt as number
+}
+
 export async function searchLists(db: DbClient, query: string): Promise<List[]> {
   const res = await db.execute({
     sql: "SELECT id, name, created_at, updated_at, deleted_at FROM lists WHERE deleted_at IS NULL AND name LIKE ? ORDER BY updated_at DESC",

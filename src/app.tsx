@@ -179,9 +179,9 @@ export function App() {
   }, [db, tursoClient, showStatus, listsHook, todosHook])
 
   const handleCreateList = useCallback(async (name: string) => {
-    await listsHook.createList(name)
+    const listName = await listsHook.createList(name)
     setModal(null)
-    showStatus(`Created list "${name}"`)
+    showStatus(`Created list "${listName}"`)
   }, [listsHook, showStatus])
 
   const handleCreateTodo = useCallback(async (title: string) => {
@@ -318,8 +318,9 @@ function renderModal(modal: ModalType, ctx: ModalContext) {
       return (
         <CreateModal
           title="Create New List"
-          placeholder="List name..."
+          placeholder="List name... (leave empty for auto-name)"
           theme={ctx.theme}
+          allowEmpty
           onSubmit={ctx.onCreateList}
           onCancel={ctx.onClose}
         />

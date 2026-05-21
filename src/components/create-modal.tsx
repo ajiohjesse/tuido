@@ -6,11 +6,12 @@ interface CreateModalProps {
   title: string
   placeholder: string
   theme: Theme
+  allowEmpty?: boolean
   onSubmit: (value: string) => void
   onCancel: () => void
 }
 
-export function CreateModal({ title, placeholder, theme, onSubmit, onCancel }: CreateModalProps) {
+export function CreateModal({ title, placeholder, theme, allowEmpty, onSubmit, onCancel }: CreateModalProps) {
   const [value, setValue] = useState("")
   useKeyboard((key) => {
     if (key.name === "escape") {
@@ -20,7 +21,9 @@ export function CreateModal({ title, placeholder, theme, onSubmit, onCancel }: C
 
   const handleSubmit = (v: any) => {
     const val = typeof v === "string" ? v : ""
-    if (val.trim()) {
+    if (allowEmpty) {
+      onSubmit(val.trim())
+    } else if (val.trim()) {
       onSubmit(val.trim())
     }
   }

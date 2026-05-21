@@ -1,5 +1,6 @@
 import type { List, SortMode } from "../utils/types"
 import type { Theme } from "../utils/theme"
+import { formatDate, isAutoNamed } from "../utils/helpers"
 
 interface ListPanelProps {
   lists: List[]
@@ -42,11 +43,17 @@ export function ListPanel({
             const isSelected = i === selectedIndex && list.id === selectedListId
             const bg = isSelected && focused ? theme.highlightBg : isSelected ? theme.selectionBg : undefined
             const fg = isSelected ? theme.selectionFg : theme.textMuted
+            const showDate = !isAutoNamed(list.name)
             return (
-              <box key={list.id} height={1} paddingX={1} backgroundColor={bg}>
+              <box key={list.id} height={showDate ? 2 : 1} paddingX={1} flexDirection="column" backgroundColor={bg}>
                 <text fg={fg}>
                   {isSelected ? ">" : " "} {isSelected ? <strong>{list.name}</strong> : list.name}
                 </text>
+                {showDate && (
+                  <text fg={theme.textDim}>
+                    {" ".repeat(isSelected ? 3 : 2)}{formatDate(list.createdAt)}
+                  </text>
+                )}
               </box>
             )
           })

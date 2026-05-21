@@ -3,6 +3,7 @@ import type { List, SortMode } from "../utils/types"
 import type { DbClient } from "../db/local"
 import * as local from "../db/local"
 import { generateId } from "../utils/id"
+import { todayDateName } from "../utils/helpers"
 
 export function useLists(db: DbClient | null, sortBy: SortMode) {
   const [lists, setLists] = useState<List[]>([])
@@ -30,12 +31,19 @@ export function useLists(db: DbClient | null, sortBy: SortMode) {
     refresh()
   }, [refresh])
 
-  const createList = useCallback(async (name: string) => {
-    if (!db) return
+  const createList = useCallback(async (name: string): Promise<string> => {
+    if (!db) return ""
     const id = generateId()
-    await local.createList(db, id, name)
+    let listName = name
+    if (!listName) {
+      const base = todayDateName()
+      const count = await local.countListsByNamePattern(db, base)
+      listName = count === 0 ? base : `${base} (${count})`
+    }
+    await local.createList(db, id, listName)
     setSelectedListId(id)
     await refresh()
+    return listName
   }, [db, refresh])
 
   const renameList = useCallback(async (id: string, name: string) => {
