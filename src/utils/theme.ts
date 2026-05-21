@@ -8,6 +8,7 @@ export interface Theme {
   text: string
   textMuted: string
   textDim: string
+  inactiveText: string
   accent: string
   destructive: string
   success: string
@@ -21,67 +22,70 @@ export interface Theme {
   scrollbarFg: string
 }
 
-export const dark: Theme = {
-  name: "dark",
-  background: "#1a1a2e",
-  surface: "#1a1a2e",
-  text: "#fff",
-  textMuted: "#888",
-  textDim: "#666",
-  accent: "#0ff",
-  destructive: "#f44",
-  success: "#0f0",
-  warning: "#ff0",
-  border: "#444",
-  selectionBg: "#222",
-  selectionFg: "#fff",
-  highlightBg: "#1a3a5c",
-  highlightFg: "#fff",
-  scrollbarBg: "#1a1a2e",
-  scrollbarFg: "#555",
+const kanagawa: Theme = {
+  name: "kanagawa",
+  background: "#1A1A22",
+  surface: "#22222E",
+  text: "#DCD7BA",
+  textMuted: "#727169",
+  textDim: "#54546D",
+  inactiveText: "#383840",
+  accent: "#FF9E3B",
+  destructive: "#C34043",
+  success: "#76946A",
+  warning: "#DCA561",
+  border: "#363646",
+  selectionBg: "#2D2D3A",
+  selectionFg: "#DCD7BA",
+  highlightBg: "#5C3A1A",
+  highlightFg: "#FFD9A3",
+  scrollbarBg: "#1A1A22",
+  scrollbarFg: "#54546D",
 }
 
-const highContrast: Theme = {
-  name: "high-contrast",
-  background: "#fff",
-  surface: "#f0f0f0",
-  text: "#000",
-  textMuted: "#444",
-  textDim: "#666",
-  accent: "#00f",
-  destructive: "#c00",
-  success: "#070",
-  warning: "#960",
-  border: "#000",
-  selectionBg: "#ddd",
-  selectionFg: "#000",
-  highlightBg: "#c0d8ff",
-  highlightFg: "#000",
-  scrollbarBg: "#f0f0f0",
-  scrollbarFg: "#888",
+const rosePine: Theme = {
+  name: "rose-pine",
+  background: "#191724",
+  surface: "#1F1D2E",
+  text: "#E0DEF4",
+  textMuted: "#908CAA",
+  textDim: "#6E6A86",
+  inactiveText: "#36334A",
+  accent: "#EB6F92",
+  destructive: "#EB6F92",
+  success: "#31748F",
+  warning: "#F6C177",
+  border: "#26233A",
+  selectionBg: "#26233A",
+  selectionFg: "#E0DEF4",
+  highlightBg: "#422B3A",
+  highlightFg: "#F4CDE0",
+  scrollbarBg: "#191724",
+  scrollbarFg: "#6E6A86",
 }
 
-const soft: Theme = {
-  name: "soft",
-  background: "#2a2520",
-  surface: "#3a332c",
-  text: "#e8dcc8",
-  textMuted: "#8a7e72",
-  textDim: "#6a6056",
-  accent: "#e8a87c",
-  destructive: "#d4786a",
-  success: "#8ab87a",
-  warning: "#d4b06a",
-  border: "#4a4038",
-  selectionBg: "#4a3f35",
-  selectionFg: "#e8dcc8",
-  highlightBg: "#5a4c40",
-  highlightFg: "#f0e6d0",
-  scrollbarBg: "#2a2520",
-  scrollbarFg: "#5a4c40",
+const emerald: Theme = {
+  name: "emerald",
+  background: "#0A0A0A",
+  surface: "#141414",
+  text: "#FFFFFF",
+  textMuted: "#A0A0A0",
+  textDim: "#707070",
+  inactiveText: "#303030",
+  accent: "#00C853",
+  destructive: "#FF1744",
+  success: "#00E676",
+  warning: "#FFD600",
+  border: "#2A2A2A",
+  selectionBg: "#1A1A1A",
+  selectionFg: "#FFFFFF",
+  highlightBg: "#103A1E",
+  highlightFg: "#A5FFC0",
+  scrollbarBg: "#0A0A0A",
+  scrollbarFg: "#707070",
 }
 
-const themes: Theme[] = [dark, highContrast, soft]
+const themes: Theme[] = [kanagawa, rosePine, emerald]
 
 export function useTheme(db: DbClient | null) {
   const [idx, setIdx] = useState(0)

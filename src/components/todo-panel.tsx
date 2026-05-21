@@ -10,7 +10,7 @@ interface TodoItemProps {
 }
 
 export function TodoItem({ todo, isSelected, focused, theme, onToggle }: TodoItemProps) {
-  const titleFg = todo.completed ? theme.textMuted : theme.text
+  const titleFg = todo.completed ? theme.textMuted : focused ? theme.text : theme.inactiveText
 
   return (
     <box
@@ -19,7 +19,7 @@ export function TodoItem({ todo, isSelected, focused, theme, onToggle }: TodoIte
       flexDirection="row"
       backgroundColor={isSelected && focused ? theme.highlightBg : isSelected ? theme.selectionBg : undefined}
     >
-      <text fg={isSelected ? theme.selectionFg : theme.text}>{isSelected ? ">" : " "}</text>
+      <text fg={isSelected ? theme.selectionFg : focused ? theme.text : theme.inactiveText}>{isSelected ? ">" : " "}</text>
       <text fg={todo.completed ? theme.success : theme.textDim}>{todo.completed ? "\u2611" : "\u2610"}</text>
       <text fg={titleFg}> {todo.title}</text>
     </box>

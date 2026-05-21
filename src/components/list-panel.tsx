@@ -42,7 +42,7 @@ export function ListPanel({
           lists.map((list, i) => {
             const isSelected = i === selectedIndex && list.id === selectedListId
             const bg = isSelected && focused ? theme.highlightBg : isSelected ? theme.selectionBg : undefined
-            const fg = isSelected ? theme.selectionFg : theme.textMuted
+            const fg = isSelected ? theme.selectionFg : focused ? theme.text : theme.inactiveText
             const showDate = !isAutoNamed(list.name)
             return (
               <box key={list.id} height={showDate ? 2 : 1} paddingX={1} flexDirection="column" backgroundColor={bg}>
